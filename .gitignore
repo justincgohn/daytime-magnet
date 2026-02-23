@@ -1,0 +1,10 @@
+# Raw LODES data files (large, downloaded per-state)
+data/raw/
+data/processed/
+
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc

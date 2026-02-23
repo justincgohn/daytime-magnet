@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daytime Magnet</title>
+    <meta name="description" content="Enter a county to see its weekday population swing — job magnet or bedroom community?">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Daytime Magnet</h1>
+            <p class="subtitle">Job magnet or bedroom community?</p>
+        </header>
+
+        <main>
+            <div class="search-section">
+                <div class="input-group">
+                    <label for="county-search">County</label>
+                    <input type="text" id="county-search" placeholder="Type a county name..." autocomplete="off">
+                    <div id="autocomplete-list" class="autocomplete-items"></div>
+                </div>
+                <button id="search-btn" class="search-button">Show Swing</button>
+            </div>
+
+            <div class="examples">
+                <span>Try:</span>
+                <button class="example-btn" data-county="36061">Manhattan, NY</button>
+                <button class="example-btn" data-county="06075">San Francisco, CA</button>
+                <button class="example-btn" data-county="51013">Arlington, VA</button>
+                <button class="example-btn" data-county="36059">Nassau County, NY</button>
+                <button class="example-btn" data-county="37183">Wake County, NC</button>
+            </div>
+
+            <div id="results" class="results hidden">
+                <!-- Hero stat -->
+                <div class="hero-section">
+                    <div id="county-title" class="county-title"></div>
+                    <div class="hero-stat">
+                        <span id="swing-value" class="swing-value"></span>
+                        <span id="classification-badge" class="classification-badge"></span>
+                    </div>
+                    <div class="percentile-display">
+                        <span class="percentile-bar">
+                            <span id="percentile-fill" class="percentile-fill"></span>
+                        </span>
+                        <span id="percentile-text" class="percentile-text"></span>
+                    </div>
+                </div>
+
+                <!-- Stats row -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <span class="stat-label">Work Here</span>
+                        <span id="employed-here" class="stat-value"></span>
+                        <span class="stat-sublabel">jobs located in county</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Live Here</span>
+                        <span id="live-here" class="stat-value"></span>
+                        <span class="stat-sublabel">workers residing in county</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Live & Work Here</span>
+                        <span id="internal" class="stat-value"></span>
+                        <span class="stat-sublabel">don't cross county line</span>
+                    </div>
+                </div>
+
+                <!-- Diverging bar chart -->
+                <div class="chart-panel">
+                    <h2>Commuter Balance</h2>
+                    <div class="chart-container">
+                        <canvas id="commuter-chart"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <span class="legend-item">
+                            <span class="legend-dot out-commuters"></span>
+                            Out-Commuters
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-dot internal-workers"></span>
+                            Internal
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-dot in-commuters"></span>
+                            In-Commuters
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Flow tables -->
+                <div class="flow-tables">
+                    <div class="flow-table">
+                        <h3>Where Workers Come From</h3>
+                        <p class="flow-subtitle">Top counties sending workers here</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>County</th>
+                                    <th>Workers</th>
+                                </tr>
+                            </thead>
+                            <tbody id="origins-table"></tbody>
+                        </table>
+                    </div>
+                    <div class="flow-table">
+                        <h3>Where Residents Go</h3>
+                        <p class="flow-subtitle">Top counties where residents work</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>County</th>
+                                    <th>Workers</th>
+                                </tr>
+                            </thead>
+                            <tbody id="destinations-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Insight callout -->
+                <div id="insight-callout" class="insight-callout"></div>
+
+                <!-- Small county notice -->
+                <div id="small-county-notice" class="small-county-notice hidden">
+                    <strong>Note:</strong> This county has fewer than 1,000 workers. Small sample sizes may produce unreliable swing percentages.
+                </div>
+            </div>
+
+            <div id="error" class="error hidden"></div>
+        </main>
+
+        <footer>
+            <p>Data source: <a href="https://lehd.ces.census.gov/data/" target="_blank">U.S. Census Bureau LEHD LODES</a> (Origin-Destination Employment Statistics)</p>
+            <p>Last updated: February 2026</p>
+            <p><a href="https://justingohn.com" target="_blank">justingohn.com</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
