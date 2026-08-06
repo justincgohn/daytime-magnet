@@ -8,3 +8,15 @@ data/processed/
 # Python
 __pycache__/
 *.pyc
+
+# Sensitive files — never commit credentials
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+credentials*.json
+token*.json
+secrets.toml
+service-account*.json
